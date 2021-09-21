@@ -3,32 +3,31 @@
 #include <dirent.h>
 #include <string.h>
 
-void listfr(char *basePath);
+void list_file_recurs(char *basepath);
 
-int main()
+int main(int argc, char *argv[])
 {
-	char path[100];
-	printf("Enter path to list files: ");
-	scanf("%s", path);
-	listfr(path);
+	listfr(argv[1]);
 	return 0;
 }
-void listfr(char *basePath)
+void list_file_recurs(char *basepath)
 {
-	struct dirent *dp;
-	char path[1000];
-	DIR *dir = opendir(basePath);
+	struct dirent *d;
+	char path[10];
+	DIR *dir = opendir(basepath);
 	if(!dir)
-		return;
-	while((dp = readdir(dir)) != NULL)
 	{
-		if(strcmp(dp-> d_name, ".") != 0 && strcmp(dp-> d_name, "..") != 0)
+		return;
+	}
+	while((d = readdir(dir)) != NULL)
+	{
+		if(strcmp(d-> d_name, ".") != 0 && strcmp(d-> d_name, "..") != 0)
 		{
-			printf("%s\n", dp->d_name);
+			printf("%s\n", d->d_name);
 			strcpy(path, basePath);
 			strcat(path, "/");
-			strcat(path, dp->d_name);
-			listfr(path);
+			strcat(path, d->d_name);
+			list_file_recurs(path);
 		}
 	}
 	closedir(dir);
