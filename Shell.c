@@ -30,7 +30,7 @@ void inf_loop() {
 }
 
 char* read_line() {
-  int i = 0;
+  	int i = 0;
 	char* buffer = malloc(sizeof(char) * BUFFER_SIZE);
 	int c;
 	if(!buffer)
@@ -46,7 +46,7 @@ char* read_line() {
 			buffer[i] = c;
 		}
 		++i;
-		if(i >= BUFFER_SIZE){
+		if(i >= BUFFER_SIZE) {
 			int BUFFER_SIZE_2 = 2*BUFFER_SIZE;
 			buffer = malloc(sizeof(char) * BUFFER_SIZE_2);
 			if(!buffer) {
@@ -90,7 +90,8 @@ int execute(char **args) {
     if (rc < 0) {
       fprintf(stderr, "fork failed\n");
       exit(1);
-    } else if (rc == 0) {
+    } 
+    else if (rc == 0) {
       close(STDOUT_FILENO);
       open("./p4.output", O_CREAT|O_WRONLY|O_TRUNC, S_IRWXU);
 
@@ -99,10 +100,11 @@ int execute(char **args) {
       myargs[1] = strdup("args"); 
       myargs[2] = NULL; 
       execvp(myargs[0], myargs); 
-    } else {
-      int rc_wait = wait(NULL);
+    } 
+     else {
+      	int rc_wait = wait(NULL);
       }
- return 0;
+     return 0;
  }
 
 int main(int argc, char* argv[]) {
