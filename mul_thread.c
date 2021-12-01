@@ -25,7 +25,10 @@ void* reduce(void* (f_p)(void*), void *d_p) {
         free(r);
     }
   printf("%d",globalSum);
-	return (void*)&globalSum;
+	int* c = &globalSum;
+    	void* v = c;
+	return v;
+	
 }
 
 void* f_p(void *arg) {
