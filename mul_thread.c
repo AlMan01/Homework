@@ -5,13 +5,13 @@
 #define N 5
 int arr[] =  {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
 
-void* reduce(void (f_p)(void), void *d_p) {
+void* reduce(void* (f_p)(void*), void *d_p) {
 	pthread_t th[N];
     int i;
     for (i = 0; i < N; i++) {
         int* a = malloc(sizeof(int));
         *a = i * N;
-        if (pthread_create(&th[i], NULL, &f_p, a) != 0) {
+        if (pthread_create(&th[i], NULL, f_p, a) != 0) {
             perror("Failed to create thread");
         }
     }
@@ -29,13 +29,13 @@ void* reduce(void (f_p)(void), void *d_p) {
 }
 
 void* f_p(void *arg) {
-	int index = (int)arg;
+	int index = *(int*)arg;
     int sum = 0;
     for (int j = 0; j < 5; j++) {
         sum += arr[index + j];
     }
-    printf("Local sum: %d\n", sum);
-    (int)arg = sum;
+    
+    *(int*)arg = sum;
     return arg;
 }
 
