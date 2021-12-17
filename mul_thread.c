@@ -81,7 +81,7 @@ void* reduce(void* (f_p)(void*), void *d_p) {
     int i;
     for (i = 0; i < N; i++) {
         int* a = malloc(sizeof(int));
-        *a = i * N;
+        *a = i * (1000 / N);
         if (pthread_create(&th[i], NULL, f_p, a) != 0) {
             perror("Failed to create thread");
         }
@@ -105,7 +105,7 @@ void* reduce(void* (f_p)(void*), void *d_p) {
 void* f_p(void *arg) {
 	int index = *(int*)arg;
     int sum = 0;
-    for (int j = 0; j < 10; j++) {
+    for (int j = 0; j < (1000 / N); j++) {
         sum += arr[index + j];
     }
     *(int*)arg = sum;
